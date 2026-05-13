@@ -4,24 +4,15 @@ import asyncio
 import random
 import os
 
-# ================= CONFIGURAÇÃO =================
 TOKEN = os.getenv("DISCORD_TOKEN")
 CHANNEL_ID = os.getenv("CHANNEL_ID")
 INTERVAL_MINUTES = int(os.getenv("INTERVAL_MINUTES", 30))
 
-# Mensagem (você pode editar aqui ou criar variável no Railway)
-MESSAGE = os.getenv("MESSAGE", """🚀 **Anúncio do meu produto!**
+# Pegando a mensagem da variável do Railway
+MESSAGE = os.getenv("MESSAGE", """🚀 **Anúncio padrão** (caso não configure a variável)""")
 
-Olá pessoal! Meu produto está em promoção!
-Link: https://seusite.com
-
-Qualquer dúvida é só chamar no PV! 🔥""")
-
-if not TOKEN:
-    print("❌ DISCORD_TOKEN não configurado!")
-    exit(1)
-if not CHANNEL_ID:
-    print("❌ CHANNEL_ID não configurado!")
+if not TOKEN or not CHANNEL_ID:
+    print("❌ Falta configurar DISCORD_TOKEN ou CHANNEL_ID")
     exit(1)
 
 CHANNEL_ID = int(CHANNEL_ID)
@@ -47,4 +38,4 @@ async def announce():
     except Exception as e:
         print(f"Erro: {e}")
 
-bot.run(TOKEN, bot=False)
+bot.run(TOKEN)
